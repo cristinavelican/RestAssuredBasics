@@ -72,9 +72,8 @@ public class Demo {
                 .header("Content-Type",containsStringIgnoringCase("application/json"))
                 .contentType(ContentType.JSON)
                 .header("Content-Encoding",notNullValue())
-                .time(lessThan(2L), TimeUnit.SECONDS)
-        ;
-        ;
-
+                .time(lessThan(2L), TimeUnit.SECONDS);
     }
+
+
 }
