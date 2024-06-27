@@ -1,5 +1,6 @@
 package restassured;
 import builders.CoffeeBuilder;
+import builders.NormalCoffeeBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import dto.Coffee;
 import io.restassured.RestAssured;
@@ -37,7 +38,10 @@ public class CreateCoffeeTests {
     // refactor this test
     @Test
     void createCoffeeTestRefactor() throws JsonProcessingException {
-        Coffee newCoffeeObject = CoffeeBuilder.createCoffeeObj(10, "Cristina's coffee","Best coffee in the city");
+        //Coffee newCoffeeObject = CoffeeBuilder.createCoffeeObj(10, "Cristina's coffee","Best coffee in the city");
+
+        NormalCoffeeBuilder builder = new NormalCoffeeBuilder();
+        Coffee newCoffeeObject = builder.setName("Cristina").setDescription("Cristina's coffee").setId(10).build();
         String jsonBody = SupportFunctions.convertJavaObjectToJson(newCoffeeObject);
         System.out.println(jsonBody);
         RestAssured.given()
@@ -47,7 +51,7 @@ public class CreateCoffeeTests {
                 .post(BASE_URL)
                 .then()
                 .statusCode(200)
-                .body("name",equalTo("Cristina's coffee"))
+                .body("name",equalTo("Cristina"))
                 .body(containsString("coffee"));
     }
 
